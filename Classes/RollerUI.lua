@@ -31,7 +31,7 @@ function RollerUI:draw(time, itemLink, itemIcon, note, SupportedRolls)
 
     local Window = CreateFrame("Frame", "GargulUI_RollerUI_Window", UIParent, Frame);
     Window:Hide();
-    Window:SetSize(350, 48);
+    Window:SetSize(500, 48);
     Window:SetPoint(GL.Interface:getPosition("Roller"));
 
     Window:SetMovable(true);
@@ -58,13 +58,13 @@ function RollerUI:draw(time, itemLink, itemIcon, note, SupportedRolls)
     Window.texture = Texture;
 
     local RollButtonWidthByAmount = {
-        [1] = 80,
-        [2] = 80,
-        [3] = 72,
-        [4] = 64,
-        [5] = 56,
-        [6] = 48,
-        [7] = 40,
+        [1] = 90,
+        [2] = 90,
+        [3] = 70,
+        [4] = 70,
+        [5] = 70,
+        [6] = 70,
+        [7] = 70,
     };
     local RollButtons = {};
     local numberOfButtons = #SupportedRolls;
@@ -72,7 +72,7 @@ function RollerUI:draw(time, itemLink, itemIcon, note, SupportedRolls)
     for i = 1, numberOfButtons do
         local RollDetails = SupportedRolls[i] or {};
 
-        local identifier = string.sub(RollDetails[1] or "", 1, 3);
+        local identifier = string.sub(RollDetails[1] or "", 1, 15);
         local min = math.floor(tonumber(RollDetails[2]) or 0);
         local max = math.floor(tonumber(RollDetails[3]) or 0);
 
@@ -82,13 +82,14 @@ function RollerUI:draw(time, itemLink, itemIcon, note, SupportedRolls)
         end
 
         -- Roll button
-        local Button = CreateFrame("Button", nil, Window, "GameMenuButtonTemplate");
+        local Button = CreateFrame("Button", tostring(i), Window, "GameMenuButtonTemplate");
         Button:SetSize(RollButtonWidthByAmount[numberOfButtons], 20);
         Button:SetText(identifier);
         Button:SetNormalFontObject("GameFontNormal");
         Button:SetHighlightFontObject("GameFontNormal");
         Button:SetScript("OnClick", function ()
             RandomRoll(min, max);
+            Button:Disable();
 
             if (GL.Settings:get("Rolling.closeAfterRoll")) then
                 self:hide();
@@ -136,7 +137,7 @@ function RollerUI:drawCountdownBar(time, itemLink, itemIcon, note)
 
     local TimerBar = LibStub("LibCandyBarGargul-3.0"):New(
         "Interface\\AddOns\\Gargul\\Assets\\Textures\\timer-bar",
-        350,
+        500,
         24
     );
 

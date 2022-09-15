@@ -65,8 +65,8 @@ function RollTracking:draw(Parent)
                     return;
                 end
 
-                -- The identifier can hold a maximum of 3 characters
-                identifier = string.sub(identifier, 1, 3);
+                -- The identifier can hold a maximum of 15 characters
+                identifier = string.sub(identifier, 1, 15);
 
                 TempNewRollSettings[i] = { identifier, min, max, priority};
             else
@@ -133,7 +133,7 @@ function RollTracking:draw(Parent)
         Identifier:SetHeight(20);
         Identifier:SetWidth(100);
         Identifier:SetText(identifier);
-        Identifier:SetMaxLetters(3);
+        Identifier:SetMaxLetters(15);
         Parent:AddChild(Identifier);
 
         local Min = GL.AceGUI:Create("EditBox");
